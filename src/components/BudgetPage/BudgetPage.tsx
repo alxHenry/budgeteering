@@ -13,7 +13,7 @@ export interface BudgetPageProps {
 
 const styles = (theme: any) => ({
   paper: {
-    padding: '8px',
+    padding: '16px',
     textAlign: 'center' as 'center',
   },
 });
