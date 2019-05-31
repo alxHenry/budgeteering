@@ -2,15 +2,12 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import AttachMoney from '@material-ui/icons/AttachMoney';
+import { DraftTransaction } from 'data/api/transactions';
+import { getMockUser } from 'data/mock/user';
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
-import { Transaction, User } from '../../data/types';
 
 export interface TransactionInputProps {
-  onSubmit(transaction: Partial<Transaction>): void;
-}
-
-export interface TransactionInputState {
-  amount: string;
+  onSubmit(transaction: DraftTransaction): void;
 }
 
 const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
@@ -36,7 +33,7 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
 
     onSubmit({
       amount: submitAmount,
-      transactor: {} as User,
+      transactor: getMockUser(),
       category,
       note,
     });

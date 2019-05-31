@@ -19,6 +19,8 @@ const BudgetTable: SFC<BudgetTableProps> = (props: BudgetTableProps) => {
           <TableRow>
             <TableCell>Amount</TableCell>
             <TableCell>User Name</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Note</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{getBudgetTableRows(props.transactions)}</TableBody>
@@ -32,6 +34,8 @@ const getBudgetTableRows = (transactions: Transaction[]) =>
     <TableRow key={transaction.id}>
       <TableCell>{transaction.amount}</TableCell>
       <TableCell>{transaction.transactor.name}</TableCell>
+      <TableCell>{transaction.category}</TableCell>
+      <TableCell>{transaction.note}</TableCell>
     </TableRow>
   ));
 
