@@ -6,9 +6,10 @@ import './App.css';
 import { getMockBudget } from './data/mock/budget';
 
 const styles = (theme: any) => ({
-  root: {
-    flexGrow: 1,
+  appRoot: {
     backgroundColor: '#f5f5f5',
+    height: '100%',
+    width: '100%',
   },
 });
 
@@ -26,7 +27,7 @@ const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.appRoot}>
       <BudgetPage transactions={transactions} onSubmitTransaction={onSubmitTransaction} />
     </div>
   );
