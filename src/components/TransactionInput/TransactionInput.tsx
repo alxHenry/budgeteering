@@ -1,8 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { Transaction, User } from '../../data/types';
 
@@ -38,17 +37,15 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
     onSubmit({
       amount: submitAmount,
       transactor: {} as User,
+      category,
+      note,
     });
   };
 
   return (
-    <Grid container={true} spacing={2} justify="center">
+    <Grid container={true} spacing={4} justify="center" alignItems="center">
       <Grid item={true}>
-        <Input
-          value={amount}
-          onChange={handleAmountChange}
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
-        />
+        <TextField label="Amount" value={amount} onChange={handleAmountChange} />
       </Grid>
       <Grid item={true}>
         <TextField label="Category" value={category} onChange={handleCategoryChange} />
@@ -60,10 +57,12 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
         <Button
           variant="contained"
           color="primary"
+          size="medium"
           onClick={event => {
             handleSubmit(event);
           }}
         >
+          <AttachMoney />
           Spend
         </Button>
       </Grid>
