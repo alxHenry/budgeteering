@@ -1,31 +1,28 @@
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import { Transaction } from '../../data/types';
 
 export interface BudgetTableProps {
   transactions: Transaction[];
 }
 
-const BudgetTable: SFC<BudgetTableProps> = (props: BudgetTableProps) => {
+const BudgetTable: FC<BudgetTableProps> = (props: BudgetTableProps) => {
   return (
-    <Paper>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Amount</TableCell>
-            <TableCell>User Name</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Note</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{getBudgetTableRows(props.transactions)}</TableBody>
-      </Table>
-    </Paper>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Amount</TableCell>
+          <TableCell>User Name</TableCell>
+          <TableCell>Category</TableCell>
+          <TableCell>Note</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>{getBudgetTableRows(props.transactions)}</TableBody>
+    </Table>
   );
 };
 

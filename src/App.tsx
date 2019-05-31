@@ -1,29 +1,35 @@
+import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
+import BudgetPage from 'components/BudgetPage';
 import { DraftTransaction } from 'data/api/transactions';
 import React, { useState } from 'react';
 import './App.css';
-import BudgetTable from './components/BudgetTable';
-import TransactionInput from './components/TransactionInput';
 import { getMockBudget } from './data/mock/budget';
 
-const App: React.FC = () => {
+const styles = (theme: any) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: '#f5f5f5',
+  },
+});
+
+const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
   const [transactions, setTransactions] = useState(getMockBudget().transactions);
 
+  const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
+    setTransactions([
+      ...transactions,
+      {
+        id: '123',
+        ...draftTransaction,
+      },
+    ]);
+  };
+
   return (
-    <>
-      <TransactionInput
-        onSubmit={(draftTransaction: DraftTransaction) => {
-          setTransactions([
-            ...transactions,
-            {
-              id: '123',
-              ...draftTransaction,
-            },
-          ]);
-        }}
-      />
-      <BudgetTable transactions={transactions} />
-    </>
+    <div className={classes.root}>
+      <BudgetPage transactions={transactions} onSubmitTransaction={onSubmitTransaction} />
+    </div>
   );
 };
 
-export default App;
+export default withStyles(styles)(App);
