@@ -1,6 +1,6 @@
-import { Transaction } from "./Transaction";
+import { BudgetPeriod } from './BudgetPeriod';
 
 export interface Budget {
   id: string;
-  transactions: Transaction[];
+  periods: BudgetPeriod[];
 }

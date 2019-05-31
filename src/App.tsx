@@ -14,7 +14,9 @@ const styles = (theme: any) => ({
 });
 
 const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
-  const [transactions, setTransactions] = useState(getMockBudget().transactions);
+  const { periods } = getMockBudget();
+  const lastPeriod = periods[periods.length - 1];
+  const [transactions, setTransactions] = useState(lastPeriod.transactions);
 
   const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
     setTransactions([
