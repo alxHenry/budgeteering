@@ -1,5 +1,6 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import { DraftTransaction } from 'data/api/transactions';
@@ -40,30 +41,32 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Grid container={true} spacing={4} justify="center" alignItems="center">
-      <Grid item={true}>
-        <TextField label="Amount" value={amount} onChange={handleAmountChange} />
+    <Paper>
+      <Grid container={true} spacing={4} justify="center" alignItems="center">
+        <Grid item={true}>
+          <TextField label="Amount" value={amount} onChange={handleAmountChange} />
+        </Grid>
+        <Grid item={true}>
+          <TextField label="Category" value={category} onChange={handleCategoryChange} />
+        </Grid>
+        <Grid item={true}>
+          <TextField label="Note" value={note} onChange={handleNoteChange} />
+        </Grid>
+        <Grid item={true}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="medium"
+            onClick={event => {
+              handleSubmit(event);
+            }}
+          >
+            <AttachMoney />
+            Spend
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item={true}>
-        <TextField label="Category" value={category} onChange={handleCategoryChange} />
-      </Grid>
-      <Grid item={true}>
-        <TextField label="Note" value={note} onChange={handleNoteChange} />
-      </Grid>
-      <Grid item={true}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          onClick={event => {
-            handleSubmit(event);
-          }}
-        >
-          <AttachMoney />
-          Spend
-        </Button>
-      </Grid>
-    </Grid>
+    </Paper>
   );
 };
 
