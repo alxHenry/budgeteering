@@ -1,9 +1,10 @@
 import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetPage from 'components/BudgetPage';
 import { DraftTransaction } from 'data/api/transactions';
-import React, { useState } from 'react';
+import { getBudget } from 'data/selectors';
+import StoreContext from 'data/state/StoreContext';
+import React, { useContext } from 'react';
 import './App.css';
-import { getMockBudget } from './data/mock/budget';
 
 const styles = (theme: any) => ({
   appRoot: {
@@ -14,24 +15,21 @@ const styles = (theme: any) => ({
 });
 
 const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
-  const { periods } = getMockBudget();
+  const { state, actionCreators } = useContext(StoreContext);
+  const { periods } = getBudget(state);
   const lastPeriod = periods[periods.length - 1];
-  const [transactions, setTransactions] = useState(lastPeriod.transactions);
 
   const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
-    setTransactions([
-      ...transactions,
-      {
-        id: '123',
-        ...draftTransaction,
-      },
-    ]);
+    actionCreators.addTransaction({
+      ...draftTransaction,
+      id: '123',
+    });
   };
 
   return (
     <div className={classes.appRoot}>
       <BudgetPage
-        transactions={transactions}
+        transactions={lastPeriod.transactions}
         onSubmitTransaction={onSubmitTransaction}
         startingAmount={lastPeriod.startingAmount}
       />
