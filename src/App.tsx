@@ -1,9 +1,6 @@
 import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetPage from 'components/BudgetPage';
-import { DraftTransaction } from 'data/api/transactions';
-import { getBudget } from 'data/selectors';
-import StoreContext from 'data/state/StoreContext';
-import React, { useContext } from 'react';
+import React from 'react';
 import './App.css';
 
 const styles = (theme: any) => ({
@@ -14,27 +11,10 @@ const styles = (theme: any) => ({
   },
 });
 
-const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
-  const { state, actionCreators } = useContext(StoreContext);
-  const { periods } = getBudget(state);
-  const lastPeriod = periods[periods.length - 1];
-
-  const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
-    actionCreators.addTransaction({
-      ...draftTransaction,
-      id: '123',
-    });
-  };
-
-  return (
-    <div className={classes.appRoot}>
-      <BudgetPage
-        transactions={lastPeriod.transactions}
-        onSubmitTransaction={onSubmitTransaction}
-        startingAmount={lastPeriod.startingAmount}
-      />
-    </div>
-  );
-};
+const App: React.FC<StyledComponentProps> = ({ classes = {} }) => (
+  <div className={classes.appRoot}>
+    <BudgetPage />
+  </div>
+);
 
 export default withStyles(styles)(App);

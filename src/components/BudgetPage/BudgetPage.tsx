@@ -4,14 +4,10 @@ import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetTable from 'components/BudgetTable';
 import RemainingPeriodAmount from 'components/RemainingPeriodAmount';
 import TransactionInput from 'components/TransactionInput';
-import { Transaction } from 'data/types';
-import React, { FC } from 'react';
-
-export interface BudgetPageProps {
-  transactions: Transaction[];
-  startingAmount: number;
-  onSubmitTransaction(transaction: Transaction): void;
-}
+import { DraftTransaction } from 'data/api/transactions';
+import { getCurrentPeriod } from 'data/selectors';
+import StoreContext from 'data/state/StoreContext';
+import React, { FC, useContext } from 'react';
 
 const styles = (theme: any) => ({
   paper: {
@@ -20,34 +16,41 @@ const styles = (theme: any) => ({
   },
 });
 
-const BudgetPage: FC<BudgetPageProps & StyledComponentProps> = ({
-  transactions,
-  startingAmount,
-  onSubmitTransaction,
-  classes = {},
-}) => (
-  <Grid container spacing={4} justify="center" alignItems="center">
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>
-        <h1>Budgeteering</h1>
-      </Paper>
+const BudgetPage: FC<StyledComponentProps> = ({ classes = {} }) => {
+  const { state, actionCreators } = useContext(StoreContext);
+  const { transactions, startingAmount } = getCurrentPeriod(state);
+
+  const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
+    actionCreators.addTransaction({
+      ...draftTransaction,
+      id: '123',
+    });
+  };
+
+  return (
+    <Grid container spacing={4} justify="center" alignItems="center">
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <h1>Budgeteering</h1>
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <RemainingPeriodAmount transactions={transactions} startingAmount={startingAmount} />
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <TransactionInput onSubmit={onSubmitTransaction} />
+        </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <BudgetTable transactions={transactions} />
+        </Paper>
+      </Grid>
     </Grid>
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>
-        <RemainingPeriodAmount transactions={transactions} startingAmount={startingAmount} />
-      </Paper>
-    </Grid>
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>
-        <TransactionInput onSubmit={onSubmitTransaction} />
-      </Paper>
-    </Grid>
-    <Grid item xs={12}>
-      <Paper className={classes.paper}>
-        <BudgetTable transactions={transactions} />
-      </Paper>
-    </Grid>
-  </Grid>
-);
+  );
+};
 
 export default withStyles(styles)(BudgetPage);
