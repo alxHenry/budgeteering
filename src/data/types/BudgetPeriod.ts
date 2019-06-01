@@ -1,7 +1,9 @@
-import { Transaction } from "./Transaction";
+import { RefillType } from './Budget';
+import { Transaction } from './Transaction';
 
 export interface BudgetPeriod {
   id: string;
   transactions: Transaction[];
-  total: number;
+  startingAmount: number;
+  refillType: RefillType;
 }
