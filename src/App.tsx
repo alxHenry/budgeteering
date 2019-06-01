@@ -30,7 +30,11 @@ const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
 
   return (
     <div className={classes.appRoot}>
-      <BudgetPage transactions={transactions} onSubmitTransaction={onSubmitTransaction} />
+      <BudgetPage
+        transactions={transactions}
+        onSubmitTransaction={onSubmitTransaction}
+        startingAmount={lastPeriod.startingAmount}
+      />
     </div>
   );
 };
