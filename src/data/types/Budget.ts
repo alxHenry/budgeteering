@@ -9,7 +9,7 @@ export interface Budget {
 }
 
 export enum RefillType {
-  daily,
-  weekly,
-  monthly,
+  daily = 'DAILY',
+  weekly = 'WEEKLY',
+  monthly = 'MONTHLY',
 }

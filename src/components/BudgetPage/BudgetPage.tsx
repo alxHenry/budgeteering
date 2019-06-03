@@ -4,7 +4,7 @@ import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetTable from 'components/BudgetTable';
 import RemainingPeriodAmount from 'components/RemainingPeriodAmount';
 import TransactionInput from 'components/TransactionInput';
-import { DraftTransaction } from 'data/api/transactions';
+import { DraftTransaction, postTransaction } from 'data/api/transaction';
 import { getCurrentPeriod } from 'data/selectors';
 import StoreContext from 'data/state/StoreContext';
 import React, { FC, useContext } from 'react';
@@ -20,11 +20,12 @@ const BudgetPage: FC<StyledComponentProps> = ({ classes = {} }) => {
   const { state, actionCreators } = useContext(StoreContext);
   const { transactions, startingAmount } = getCurrentPeriod(state);
 
-  const onSubmitTransaction = (draftTransaction: DraftTransaction) => {
-    actionCreators.addTransaction({
-      ...draftTransaction,
-      id: '123',
-    });
+  const onSubmitTransaction = async (draftTransaction: DraftTransaction) => {
+    const result = await postTransaction(draftTransaction);
+    if (!result) {
+      return;
+    }
+    actionCreators.addTransaction(result);
   };
 
   return (
