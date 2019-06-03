@@ -29,6 +29,11 @@ const reducer = (state: BudgeteeringState = initialState, action: BudgeteeringAc
           periods: updatedPeriods,
         },
       };
+    case 'CURRENT_USER.LOADED':
+      return {
+        ...state,
+        me: action.payload.user,
+      };
     default:
       return state;
   }
