@@ -1,5 +1,5 @@
 import { Transaction } from 'data/types';
-import { firestore } from '../../firebase';
+import { firestore } from '../../firebaseSetup';
 import { normalizeTransaction } from './normalize/transaction';
 import { normalizeUser } from './normalize/user';
 

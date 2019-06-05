@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { Transaction, User } from './types';
+import { Transaction, UserWithCredentials } from './types';
 import { BudgeteeringState } from './types/state';
 
 export type BudgeteeringAction = AddTransactionAction | CurrentUserLoaded;
@@ -11,7 +11,7 @@ export enum ActionTypes {
 
 export interface BudgeteeringActionCreators {
   addTransaction(transaction: Transaction): void;
-  currentUserLoaded(user: User): void;
+  currentUserLoaded(user: UserWithCredentials): void;
 }
 
 export interface AddTransactionAction {
@@ -24,7 +24,7 @@ export interface AddTransactionAction {
 export interface CurrentUserLoaded {
   type: ActionTypes.CurrentUserLoaded;
   payload: {
-    user: User;
+    user: UserWithCredentials;
   };
 }
 
@@ -39,7 +39,7 @@ export const useActions = (
         transaction,
       },
     }),
-  currentUserLoaded: (user: User) =>
+  currentUserLoaded: (user: UserWithCredentials) =>
     dispatch({
       type: ActionTypes.CurrentUserLoaded,
       payload: {

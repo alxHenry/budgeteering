@@ -1,7 +1,7 @@
 import { Budget } from './Budget';
-import { User } from './User';
+import { UserWithCredentials } from './User';
 
 export interface BudgeteeringState {
   budget: Budget;
-  me?: User;
+  me?: UserWithCredentials;
 }
