@@ -3,7 +3,7 @@ import { normalizeBudget, PreNormalizedBudget } from './normalize/budget';
 
 let unsubscribe: () => void;
 
-export const getBudget = async (id: string) => {
+export const fetchBudget = async (id: string) => {
   const budget = await firestore
     .collection('budget')
     .doc(id)

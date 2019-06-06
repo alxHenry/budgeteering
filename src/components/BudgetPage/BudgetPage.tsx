@@ -4,7 +4,7 @@ import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetTable from 'components/BudgetTable';
 import RemainingPeriodAmount from 'components/RemainingPeriodAmount';
 import TransactionInput from 'components/TransactionInput';
-import { getBudget, unsubscribeFromBudget } from 'data/api/budget';
+import { fetchBudget, subscribeToBudget, unsubscribeFromBudget } from 'data/api/budget';
 import { DraftTransaction, postTransaction } from 'data/api/transaction';
 import { getCurrentPeriod } from 'data/selectors';
 import StoreContext from 'data/state/StoreContext';
@@ -24,9 +24,13 @@ const BudgetPage: FC<StyledComponentProps> = ({ classes = {} }) => {
   const startingAmount = currentPeriod ? currentPeriod.startingAmount : 0;
 
   useEffect(() => {
-    // subscribeToBudget('Il3Wqe4yeKN0sO69jGQ9', snap => {});
-    const budget = getBudget('Il3Wqe4yeKN0sO69jGQ9').then(budget => {
-      // set budget in store
+    subscribeToBudget('Il3Wqe4yeKN0sO69jGQ9', snap => {
+      // diff budget to figure out what to fetch
+    });
+    fetchBudget('Il3Wqe4yeKN0sO69jGQ9').then(budget => {
+      if (budget) {
+        actionCreators.budgetLoaded(budget);
+      }
     });
 
     return () => {
