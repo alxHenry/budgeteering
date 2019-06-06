@@ -1,15 +1,12 @@
 import { BudgeteeringAction } from '../actions';
-import { getMockBudget } from '../mock/budget';
 import { BudgeteeringState } from '../types/state';
 
-export const initialState: BudgeteeringState = {
-  budget: getMockBudget(),
-};
+export const initialState: BudgeteeringState = {};
 
 const reducer = (state: BudgeteeringState = initialState, action: BudgeteeringAction) => {
   switch (action.type) {
     case 'TRANSACTION.ADD':
-      if (!state.budget.periods.length) {
+      if (!state.budget || !state.budget.periods.length) {
         return state;
       }
 

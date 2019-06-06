@@ -1,6 +1,6 @@
 import { Transaction } from 'data/types';
 import { firestore } from '../../firebaseSetup';
-import { normalizeTransaction } from './normalize/transaction';
+import { normalizeTransactionPost } from './normalize/transaction';
 import { normalizeUser } from './normalize/user';
 
 export interface DraftTransaction {
@@ -21,5 +21,5 @@ export const postTransaction = async (draftTransaction: DraftTransaction): Promi
   });
   const docSnapshot = await docReference.get();
 
-  return normalizeTransaction(docSnapshot);
+  return normalizeTransactionPost(docSnapshot);
 };
