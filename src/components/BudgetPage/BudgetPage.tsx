@@ -4,10 +4,11 @@ import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import BudgetTable from 'components/BudgetTable';
 import RemainingPeriodAmount from 'components/RemainingPeriodAmount';
 import TransactionInput from 'components/TransactionInput';
-import { fetchBudget, subscribeToBudget, unsubscribeFromBudget } from 'data/api/budget';
-import { DraftTransaction, postTransaction } from 'data/api/transaction';
-import { getCurrentPeriod } from 'data/selectors';
+import { fetchBudget, postBudget, subscribeToBudget, unsubscribeFromBudget } from 'data/api/budget';
+import { getBudget, getCurrentPeriod } from 'data/selectors';
 import StoreContext from 'data/state/StoreContext';
+import { Budget, Transaction } from 'data/types';
+import { addTransactionToBudget } from 'data/utils/budget';
 import React, { FC, useContext, useEffect } from 'react';
 
 const styles = (theme: any) => ({
@@ -19,17 +20,22 @@ const styles = (theme: any) => ({
 
 const BudgetPage: FC<StyledComponentProps> = ({ classes = {} }) => {
   const { state, actionCreators } = useContext(StoreContext);
+  const budget = getBudget(state);
   const currentPeriod = getCurrentPeriod(state);
   const transactions = currentPeriod ? currentPeriod.transactions : [];
   const startingAmount = currentPeriod ? currentPeriod.startingAmount : 0;
 
   useEffect(() => {
-    subscribeToBudget('Il3Wqe4yeKN0sO69jGQ9', snap => {
-      // diff budget to figure out what to fetch
+    subscribeToBudget('hb9zADJBVAd6Y3akSCig', snap => {
+      const updatedBudget = snap.data() as Budget | undefined;
+      if (updatedBudget) {
+        actionCreators.budgetLoaded(updatedBudget);
+      }
     });
-    fetchBudget('Il3Wqe4yeKN0sO69jGQ9').then(budget => {
-      if (budget) {
-        actionCreators.budgetLoaded(budget);
+
+    fetchBudget('hb9zADJBVAd6Y3akSCig').then(fetchedBudget => {
+      if (fetchedBudget) {
+        actionCreators.budgetLoaded(fetchedBudget);
       }
     });
 
@@ -38,12 +44,13 @@ const BudgetPage: FC<StyledComponentProps> = ({ classes = {} }) => {
     };
   }, []);
 
-  const onSubmitTransaction = async (draftTransaction: DraftTransaction) => {
-    const result = await postTransaction(draftTransaction);
-    if (!result) {
-      return;
-    }
-    actionCreators.addTransaction(result);
+  if (!budget) {
+    return null;
+  }
+
+  const onSubmitTransaction = async (newTransaction: Transaction) => {
+    const modifiedBudget = addTransactionToBudget(budget, newTransaction);
+    postBudget(modifiedBudget);
   };
 
   return (

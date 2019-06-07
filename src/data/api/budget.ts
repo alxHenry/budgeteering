@@ -1,5 +1,5 @@
+import { Budget } from 'data/types';
 import { firestore } from '../../firebaseSetup';
-import { normalizeBudget, PreNormalizedBudget } from './normalize/budget';
 
 let unsubscribe: () => void;
 
@@ -9,16 +9,15 @@ export const fetchBudget = async (id: string) => {
     .doc(id)
     .get();
 
-  const data = budget.data() as PreNormalizedBudget | null;
+  const data = budget.data() as Budget | null;
   if (!data) {
     return null;
   }
 
-  return normalizeBudget({
-    ...data,
-    id,
-  });
+  return data;
 };
+
+export const postBudget = (budget: Budget) => firestore.doc(`budget/${budget.id}`).update(budget);
 
 export const subscribeToBudget = (id: string, onUpdate: (snap: firebase.firestore.DocumentSnapshot) => void) => {
   unsubscribe = firestore

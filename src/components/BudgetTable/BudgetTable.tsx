@@ -28,7 +28,7 @@ const BudgetTable: FC<BudgetTableProps> = (props: BudgetTableProps) => {
 
 const getBudgetTableRows = (transactions: Transaction[]) =>
   transactions.map(transaction => (
-    <TableRow key={transaction.id}>
+    <TableRow>
       <TableCell>{transaction.amount}</TableCell>
       <TableCell>{transaction.transactor.name}</TableCell>
       <TableCell>{transaction.category}</TableCell>
