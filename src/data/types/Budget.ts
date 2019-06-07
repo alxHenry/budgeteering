@@ -6,6 +6,7 @@ export interface Budget {
   refillType: RefillType;
   refillAmount: number;
   nextRefillDate: Date;
+  allowedUserIds: string[];
 }
 
 export enum RefillType {

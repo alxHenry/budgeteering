@@ -5,6 +5,7 @@ import AttachMoney from '@material-ui/icons/AttachMoney';
 import { getMockUser } from 'data/mock/user';
 import { Transaction } from 'data/types';
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
+import uuidv4 from 'uuid/v4';
 
 export interface TransactionInputProps {
   onSubmit(transaction: Transaction): void;
@@ -32,6 +33,7 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
     const submitAmount = isNaN(parsedAmount) ? 0 : parsedAmount;
 
     onSubmit({
+      id: uuidv4(),
       amount: submitAmount,
       transactor: getMockUser(),
       category,

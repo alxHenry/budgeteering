@@ -15,7 +15,7 @@ const styles = (theme: any) => ({
 });
 
 const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
-  const { state, actionCreators } = useContext(StoreContext);
+  const { state } = useContext(StoreContext);
   const me = getMe(state);
 
   const appContent = me ? <BudgetPage /> : <FirebaseAuth />;
