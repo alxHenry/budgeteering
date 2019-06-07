@@ -9,3 +9,5 @@ export const getCurrentPeriod = (state: BudgeteeringState) => {
 
   return state.budget.periods[state.budget.periods.length - 1];
 };
+
+export const getMe = (state: BudgeteeringState) => state.me;
