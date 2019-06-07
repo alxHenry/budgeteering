@@ -25,6 +25,7 @@ const FirebaseAuth: FC = () => {
         actionCreators.currentUserLoaded({
           id: uid,
           name: displayName || email || 'Anonymous User',
+          email: email || '',
           accessToken: cred.accessToken,
         });
       })
