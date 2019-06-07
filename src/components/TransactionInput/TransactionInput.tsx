@@ -2,9 +2,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-import { getMockUser } from 'data/mock/user';
+import { getMeWithoutCreds } from 'data/selectors';
+import StoreContext from 'data/state/StoreContext';
 import { Transaction } from 'data/types';
-import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useContext, useState } from 'react';
 import uuidv4 from 'uuid/v4';
 
 export interface TransactionInputProps {
@@ -15,6 +16,15 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [note, setNote] = useState('');
+
+  const { state } = useContext(StoreContext);
+  const me = getMeWithoutCreds(state);
+
+  const clearForm = () => {
+    setAmount('');
+    setCategory('');
+    setNote('');
+  };
 
   const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAmount(event.currentTarget.value);
@@ -35,10 +45,12 @@ const TransactionInput: FC<TransactionInputProps> = ({ onSubmit }) => {
     onSubmit({
       id: uuidv4(),
       amount: submitAmount,
-      transactor: getMockUser(),
+      transactor: me,
       category,
       note,
     });
+
+    clearForm();
   };
 
   return (
