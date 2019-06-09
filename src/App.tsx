@@ -1,8 +1,9 @@
 import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
+import PageAuth from 'components/Auth/PageAuth';
 import BudgetPage from 'components/BudgetPage';
-import FirebaseAuth from 'components/FirebaseAuth';
 import { getMe } from 'data/selectors';
 import StoreContext from 'data/state/StoreContext';
+import useFirebaseAuth from 'hooks/useFirebaseAuth';
 import React, { useContext } from 'react';
 import './App.css';
 
@@ -18,8 +19,9 @@ const App: React.FC<StyledComponentProps> = ({ classes = {} }) => {
   const { state } = useContext(StoreContext);
   const me = getMe(state);
 
-  const appContent = me ? <BudgetPage /> : <FirebaseAuth />;
+  useFirebaseAuth();
 
+  const appContent = me ? <BudgetPage /> : <PageAuth />;
   return <div className={classes.appRoot}>{appContent}</div>;
 };
 
