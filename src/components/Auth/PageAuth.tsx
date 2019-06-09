@@ -1,7 +1,7 @@
 import { Fab, Grid, Paper } from '@material-ui/core';
 import { StyledComponentProps, withStyles } from '@material-ui/core/styles';
 import GoogleIcon from 'assets/icons/GoogleIcon';
-import FirebaseAuth from 'components/FirebaseAuth';
+import FirebaseAuth from 'components/Auth/FireBaseAuth';
 import React, { FC, useState } from 'react';
 
 const styles = (theme: any) => ({

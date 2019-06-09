@@ -1,4 +1,3 @@
-// const firebase = require('firebase');
 import * as firebase from 'firebase';
 import { FC, useEffect } from 'react';
 
