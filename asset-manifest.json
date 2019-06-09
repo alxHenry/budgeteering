@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/budgeteering/static/css/main.37ac8543.chunk.css",
-    "main.js": "/budgeteering/static/js/main.03c3455d.chunk.js",
-    "main.js.map": "/budgeteering/static/js/main.03c3455d.chunk.js.map",
+    "main.js": "/budgeteering/static/js/main.15880dfe.chunk.js",
+    "main.js.map": "/budgeteering/static/js/main.15880dfe.chunk.js.map",
     "runtime~main.js": "/budgeteering/static/js/runtime~main.b1c2f346.js",
     "runtime~main.js.map": "/budgeteering/static/js/runtime~main.b1c2f346.js.map",
     "static/js/2.47a5ec02.chunk.js": "/budgeteering/static/js/2.47a5ec02.chunk.js",
     "static/js/2.47a5ec02.chunk.js.map": "/budgeteering/static/js/2.47a5ec02.chunk.js.map",
     "index.html": "/budgeteering/index.html",
-    "precache-manifest.d515fb9de796e1ebb634755f537cc2be.js": "/budgeteering/precache-manifest.d515fb9de796e1ebb634755f537cc2be.js",
+    "precache-manifest.a297f2e0a13b33ee2499506678c15126.js": "/budgeteering/precache-manifest.a297f2e0a13b33ee2499506678c15126.js",
     "service-worker.js": "/budgeteering/service-worker.js",
     "static/css/main.37ac8543.chunk.css.map": "/budgeteering/static/css/main.37ac8543.chunk.css.map"
   }
