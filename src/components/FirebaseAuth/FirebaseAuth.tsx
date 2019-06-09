@@ -8,12 +8,14 @@ const FirebaseAuth: FC = () => {
 
   useEffect(() => {
     const provider = new firebase.auth.GoogleAuthProvider();
+
     firebase
       .auth()
-      .signInWithPopup(provider)
+      .getRedirectResult()
       .then(result => {
         if (!result.credential || !result.user) {
-          throw Error('Sign in does not have all info!');
+          firebase.auth().signInWithRedirect(provider);
+          throw Error('Sign in does not have all info or was not started!');
         }
 
         const cred = result.credential as firebase.auth.OAuthCredential;
